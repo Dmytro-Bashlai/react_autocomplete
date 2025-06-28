@@ -43,7 +43,7 @@ export const App: React.FC = () => {
   const delayRef = useRef(300);
 
   const applyQuery = useMemo(() => {
-    debounce(setAppliedQuery, delayRef.current);
+    return debounce(setAppliedQuery, delayRef.current);
   }, []);
 
   const filteredPeople = useMemo(() => {
