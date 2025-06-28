@@ -42,10 +42,9 @@ export const App: React.FC = () => {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const delayRef = useRef(300);
 
-  const applyQuery = useCallback(
-    debounce(setAppliedQuery, delayRef.current),
-    [],
-  );
+  const applyQuery = useMemo(() => {
+    debounce(setAppliedQuery, delayRef.current);
+  }, []);
 
   const filteredPeople = useMemo(() => {
     return peopleFromServer.filter((person: Person) => {
