@@ -1,4 +1,11 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import './App.scss';
 import debounce from 'lodash.debounce';
 import { peopleFromServer } from './data/people';
@@ -45,6 +52,12 @@ export const App: React.FC = () => {
   const applyQuery = useMemo(() => {
     return debounce(setAppliedQuery, delayRef.current);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      applyQuery.cancel();
+    };
+  }, [applyQuery]);
 
   const filteredPeople = useMemo(() => {
     return peopleFromServer.filter((person: Person) => {
@@ -112,7 +125,7 @@ export const App: React.FC = () => {
             is-danger
             is-light
             mt-3
-            is-align-self-flex-end
+            is-align-self-flex-start
           "
             role="alert"
             data-cy="no-suggestions-message"
